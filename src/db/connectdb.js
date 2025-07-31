@@ -1,22 +1,15 @@
 import { Sequelize } from "sequelize";
 
-
-
-
-console.log("Connecting to DB with:", {
-  DB_NAME: process.env.DB_NAME,
-  DB_USERNAME: process.env.DB_USERNAME,
-  DB_PASSWORD: process.env.DB_PASSWORD,
-});
-
 const sequelize = new Sequelize(
-  process.env.DB_NAME,
-  process.env.DB_USERNAME,
-  process.env.DB_PASSWORD,
+  process.env.DB_URI,
   {
-    host: "localhost",
     dialect: "postgres",
-    logging: true,
+    dialectOptions:{
+      ssl: {
+        require: true,
+        rejectUnauthorized: false
+      }
+    }
   }
 );
 
